@@ -11,6 +11,10 @@ const exerciseSchema = mongoose.Schema({
         enum: ['Core', 'Arms', 'Back', 'Chest', 'Legs', 'Shoulders', 'Full Body' , 'Cardio', 'Other'],
         required: true
     },
+    category: {
+        type: String,
+        enum: ['Barbell', 'Dumbbell', 'Machine/Other', 'Weighted Bodyweight', 'Assisted Bodyweight', 'Reps Only', 'Cardio', 'Duration'],
+    },
     instruction: {
         type: String,
         trim: true
