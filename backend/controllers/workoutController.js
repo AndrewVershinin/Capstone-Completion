@@ -42,7 +42,7 @@ export const getWorkoutById = async (req, res) => {
 };
 
 // Updete workout 
-export const updeteWorkout = async (req, res) => {
+export const updateWorkout = async (req, res) => {
     try {
         const updatedWorkout = await Workout.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
@@ -65,7 +65,7 @@ export const deleteWorkout = async (req, res) => {
         if (!deletedWorkout) {
             return res.status(404).json({ message: 'Workout not found' });
         }
-        
+
         res.status(200).json({ message: 'Workout deleted successfully', deletedWorkout });
     } catch (error) {
         res.status(500).json({ message: error.message })

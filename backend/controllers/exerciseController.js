@@ -51,7 +51,7 @@ export const updateExercise = async (req, res) => {
 };
 
 // Delete an exercise by ID
-export const deleteExsercise = async (req, res) => {
+export const deleteExercise = async (req, res) => {
 
     try {
         const deletedExercise = await Exercise.findByIdAndDelete(req.params.id);
