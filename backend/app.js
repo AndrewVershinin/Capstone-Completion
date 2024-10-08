@@ -1,5 +1,6 @@
 import express from 'express';
 import 'dotenv/config';
+// import workoutRoutes from './routes/workoutRoutes.js'
 
 const app = express();
 
