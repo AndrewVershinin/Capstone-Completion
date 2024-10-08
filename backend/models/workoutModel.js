@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Exercise from "./exerciseModel";
+import Exercise from "./exerciseModel.js";
 
 const exerciseSetSchema = mongoose.Schema({
     exercise: {
