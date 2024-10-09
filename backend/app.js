@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Define API routes
 app.use('/api/workouts', workoutRoutes);
-app.use('/api/exercises', exerciseRoutes)
+app.use('/api/exercises', exerciseRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello from server!')
