@@ -3,9 +3,14 @@ import 'dotenv/config';
 import workoutRoutes from './routes/workoutRoutes.js'
 import exerciseRoutes from './routes/exerciseRoutes.js'
 import userRoutes from './routes/userRoutes.js';
+import cors from 'cors';
 
 const app = express();
 
+// Enable CORS for all requests or specific domains
+app.use(cors({
+    credentials: true
+}))
 
 // Middleware
 app.use(express.json());
@@ -15,7 +20,7 @@ app.use('/api/workouts', workoutRoutes);
 app.use('/api/exercises', exerciseRoutes);
 app.use('/api/users', userRoutes);
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.send('Hello from server!')
 });
 

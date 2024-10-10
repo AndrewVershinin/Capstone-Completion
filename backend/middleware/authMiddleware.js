@@ -10,7 +10,7 @@ export const verifyToken = async (req, res, next) => {
 
     try {
         // Verify the token with Firebase Admin SDK
-        const decodedToken = await auth.verifyToken(token);
+        const decodedToken = await auth.verifyIdIdToken(token);
         req.user = decodedToken; // Attach the decoded token to req.user
         console.log('Decoded Token:', decodedToken);
         next(); // Proceed to the next middleware/controller
