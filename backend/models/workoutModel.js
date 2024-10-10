@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
-import Exercise from "./exerciseModel.js";
 
 const exerciseSetSchema = mongoose.Schema({
     exercise: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: Exercise,
+        ref: 'Exercise',
         required: true
     },
     sets: {
@@ -34,6 +33,11 @@ const workoutSchema = mongoose.Schema({
     notes: {
         type: String,
         trim: true
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 }, {
     timestamps: true

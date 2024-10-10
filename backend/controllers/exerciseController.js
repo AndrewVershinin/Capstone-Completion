@@ -1,9 +1,21 @@
 import Exercise from "../models/exerciseModel.js";
+import User from "../models/userModel.js";
 
 // Create a new exercise
 export const createExercise = async (req, res) => {
+    const { name, bodyPart, category, instruction } = req.body;
+
+    // Ensure the user is authenticated
+    const userId = req.user.uid; // Extract the user ID from Firebase token
+
     try {
-        const exercise = await Exercise.create(req.body); // Create and save the document
+        const exercise = await Exercise.create({
+            name, 
+            bodyPart,
+            category,
+            instruction,
+            user: userId
+        }); // Create and save the document
         res.status(201).json(exercise); // Respond with the created exercise
     } catch (error) {
         res.status(400).json(error); // handle errors

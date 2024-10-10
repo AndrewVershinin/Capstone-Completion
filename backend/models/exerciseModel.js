@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import User from "./userModel.js";
 
 const exerciseSchema = mongoose.Schema({
     name: {
@@ -8,7 +9,7 @@ const exerciseSchema = mongoose.Schema({
     },
     bodyPart: {
         type: String,
-        enum: ['Core', 'Arms', 'Back', 'Chest', 'Legs', 'Shoulders', 'Full Body' , 'Cardio', 'Other'],
+        enum: ['Core', 'Arms', 'Back', 'Chest', 'Legs', 'Shoulders', 'Full Body', 'Cardio', 'Other'],
         required: true
     },
     category: {
@@ -19,6 +20,11 @@ const exerciseSchema = mongoose.Schema({
         type: String,
         trim: true
     },
+    user: { // Add a reference to the user who created the exercise
+        type: mongoose.Schema.Types.ObjectId,
+        ref: User,
+        required: true // Make sure every exercise has a user associated with it
+    }
 }, {
     timestamps: true
 });

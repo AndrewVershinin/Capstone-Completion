@@ -1,16 +1,31 @@
 import Workout from "../models/workoutModel.js";
+import User from "../models/userModel.js";
 
 // Create a new workout
 export const createWorkout = async (req, res) => {
-    try {
-        const { workoutName, exercises, notes } = req.body;
+    const { workoutName, exercises, notes } = req.body;
 
+    // Ensure the user is authenticated
+    const userId = req.user.uid;
+
+    try {
         if (exercises.length === 0) {
             return res.status(400).json({ message: 'Workout must include at least one exercise.' });
         }
+        // Create a new workout and associate it with the authenticated user
+        const newWorkout = await Workout.create({ 
+            workoutName, 
+            exercises, 
+            notes,
+            user: userId // Associate the workout with the user's ID
+        });
 
-        const workout = await Workout.create({ workoutName, exercises, notes });
-        res.status(201).json(workout)
+        // update the user's workouts array
+        const user = await User.findById(userId);
+        user.workouts.push(newWorkout._id);
+        await user.save();
+
+        res.status(201).json({ message: "Workout created successfully", newWorkout })
 
     } catch (error) {
         res.status(400).json(error) // handle errors
