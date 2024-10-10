@@ -4,6 +4,7 @@ import './App.css';
 import Exercises from './components/Exercises/Exercises';
 import SignUp from './components/Auth/SignUp';
 import Login from './components/Auth/Login';
+import Profile from './components/Auth/Profile';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path='/exercises' element={<Exercises />}/>
           <Route path='/register' element={<SignUp />}/>
           <Route path='/login' element={<Login />}/>
+          <Route path='/profile' element={<Profile />}/>
         </Routes>
       </Router>
     </>

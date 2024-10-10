@@ -12,10 +12,6 @@ const userSchema = mongoose.Schema({
         unique: true,
         trim: true
     },
-    password: {
-        type: String,
-        required: true
-    },
     uid: { // Add Firebase UID field
         type: String,
         required: true,

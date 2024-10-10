@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebaseClient";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -17,6 +19,7 @@ const Login = () => {
             localStorage.setItem('token', token);
             setSuccess('You logged in successfully!');
             setError('');
+            navigate('/profile')
         } catch (error) {
             console.error('Error logging in:', error);
             setError('Login failed.');

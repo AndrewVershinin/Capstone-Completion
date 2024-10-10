@@ -8,21 +8,23 @@ export const registerUser = async (req, res) => {
     try {
         // Create user in Firebase Auth using Firebase Admin SDK
         const userCredential = await auth.createUser({
-            email: email,
-            password: password,
-            displayName: displayName
+            email,
+            password,
+            displayName
         });
 
         const firebaseUid = userCredential.uid; // get Firebase UID
         const token = await auth.createCustomToken(firebaseUid); // Generate a custom token
+        
 
         // Save additional user details in MongoDB using create()
         const newUser = await User.create({
-            email: userCredential.email, // Use Firebase Auth user email
+            email: userCredential.email, 
             displayName,
-            password,
-            uid: firebaseUid // Save Firebase UID in MongoDB
+            uid: firebaseUid 
         });
+
+        
 
         res.status(201).json({ message: 'User registered successfully', user: newUser, token })
     } catch (error) {
