@@ -6,8 +6,8 @@ const router = express.Router();
 
 // Routes
 router.post('/', verifyToken, createExercise); // Create a new exercise
-router.get('/', getExercises); // Get all exercises
-router.get('/:id', getExerciseById); // Get exercise by ID
+router.get('/', verifyToken, getExercises); // Get all exercises
+router.get('/:id', verifyToken, getExerciseById); // Get exercise by ID
 router.put('/:id', verifyToken, updateExercise); // Update an exercise by ID
 router.delete('/:id', verifyToken, deleteExercise); // Delete an exercise by ID
 

@@ -7,6 +7,7 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [displayName, setDisplayName] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate()
 
     const handleSignUp = async (e) => {
@@ -16,18 +17,14 @@ const SignUp = () => {
             const response = await registerUser(userData);
 
             if (response.token) {
-                localStorage.setItem('token', response.token);
-
-
-                setTimeout(() => {
-                    navigate('/profile'); 
-                }, 1000);
-
+                localStorage.setItem('token', response.token); // Store the JWT token in localStorage
+                console.log('User registered successfully!');
+                navigate('/profile');
             } else {
                 console.error('Error: No token returned from backend');
             }
         } catch (error) {
-            console.error('Error registering user:', error);
+            console.log(error)
         }
     };
 

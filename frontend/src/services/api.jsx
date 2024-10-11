@@ -8,12 +8,21 @@ const api = axios.create({
     }
 });
 
+// Helper function to get the token
+const getToken = () => {
+    return localStorage.getItem('token'); // Retrieve the token from localStorage
+};
+
 // === Exercise ===
 
 // Fetch all exercises
 export const getExercises = async () => {
     try {
-        const response = await api.get('/exercises');
+        const response = await api.get('/exercises', {
+            headers: {
+                Authorization: `Bearer ${getToken()}`, 
+            },
+        });
         return response.data;
     } catch (error) {
         console.error('Error fetching exercises:', error);
@@ -21,12 +30,12 @@ export const getExercises = async () => {
     }
 };
 
-// Create a nex exercise
-export const createExercise = async (exerciseData, token) => {
+// Create a new exercise
+export const createExercise = async (exerciseData) => {
     try {
         const response = await api.post('/exercises', exerciseData, {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${getToken()}`, 
             }
         });
         return response.data;
@@ -37,11 +46,11 @@ export const createExercise = async (exerciseData, token) => {
 };
 
 // Update an existing exercise
-export const updateExercise = async (exerciseId, exerciseData, token) => {
+export const updateExercise = async (exerciseId, exerciseData) => {
     try {
         const response = await api.put(`/exercises/${exerciseId}`, exerciseData, {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${getToken()}`, 
             }
         });
         return response.data;
@@ -52,11 +61,11 @@ export const updateExercise = async (exerciseId, exerciseData, token) => {
 };
 
 // Delete an exercise
-export const deleteExercise = async (exerciseId, token) => {
+export const deleteExercise = async (exerciseId) => {
     try {
         const response = await api.delete(`/exercises/${exerciseId}`, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${getToken()}`, 
             },
         });
         return response.data;
@@ -71,7 +80,11 @@ export const deleteExercise = async (exerciseId, token) => {
 // Fetch all workouts
 export const getWorkouts = async () => {
     try {
-        const response = await api.get('/workouts');
+        const response = await api.get('/workouts', {
+            headers: {
+                Authorization: `Bearer ${getToken()}`, 
+            }
+        });
         return response.data;
     } catch (error) {
         console.error('Error fetching workouts:', error);
@@ -80,11 +93,11 @@ export const getWorkouts = async () => {
 };
 
 // Create a new workout
-export const createWorkout = async (workoutData, token) => {
+export const createWorkout = async (workoutData) => {
     try {
         const response = await api.post('/workouts', workoutData, {
             headers: {
-                Authorization: `Bearer ${token}`, // Pass token for authentication if required
+                Authorization: `Bearer ${getToken()}`, 
             },
         });
         return response.data;
@@ -95,11 +108,11 @@ export const createWorkout = async (workoutData, token) => {
 };
 
 // Update a workout
-export const updateWorkout = async (workoutId, workoutData, token) => {
+export const updateWorkout = async (workoutId, workoutData) => {
     try {
         const response = await api.put(`/workouts/${workoutId}`, workoutData, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${getToken()}`,
             },
         });
         return response.data;
@@ -110,11 +123,11 @@ export const updateWorkout = async (workoutId, workoutData, token) => {
 };
 
 // Delete a workout
-export const deleteWorkout = async (workoutId, token) => {
+export const deleteWorkout = async (workoutId) => {
     try {
         const response = await api.delete(`/workouts/${workoutId}`, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${getToken()}`, 
             },
         });
         return response.data;
@@ -127,11 +140,11 @@ export const deleteWorkout = async (workoutId, token) => {
 // ===User Authentication & Profile ===
 
 // Fetch user profile by ID
-export const getUserProfile = async (uid, token) => {
+export const getUserProfile = async () => {
     try {
-        const response = await api.get(`/users/${uid}`, {
+        const response = await api.get(`/users/profile`, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${getToken()}`, 
             },
         });
         return response.data;
@@ -148,6 +161,17 @@ export const registerUser = async (userData) => {
         return response.data;
     } catch (error) {
         console.error('Error registering user:', error);
+        throw error;
+    }
+};
+
+// User Login (Sign in)
+export const loginUser = async (userData) => {
+    try {
+        const response = await api.post('/users/login', userData);
+        return response.data;
+    } catch (error) {
+        console.error('Error logging in:', error);
         throw error;
     }
 };

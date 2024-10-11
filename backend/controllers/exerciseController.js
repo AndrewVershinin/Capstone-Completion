@@ -5,60 +5,64 @@ import User from "../models/userModel.js";
 export const createExercise = async (req, res) => {
     const { name, bodyPart, category, instruction } = req.body;
 
-    // Ensure the user is authenticated
-    const userId = req.user.uid; // Extract the user ID from Firebase token
-
     try {
+
+        if (!req.userId) {
+            return res.status(400).json({ message: "User ID not provided." });
+        }
+
         const exercise = await Exercise.create({
-            name, 
+            name,
             bodyPart,
             category,
             instruction,
-            user: userId
-        }); // Create and save the document
-        res.status(201).json(exercise); // Respond with the created exercise
+            user: req.userId, // Attach the user's ID from the token
+        });
+
+        res.status(201).json(exercise);
     } catch (error) {
-        res.status(400).json(error); // handle errors
+        res.status(500).json({ message: error.message });
     }
 };
 
 // Get all exercises
 export const getExercises = async (req, res) => {
     try {
-        const exercises = await Exercise.find(); // Fetch all exercises
-        res.status(200).json(exercises); // Respond with the list of exercises
+        const exercises = await Exercise.find({ user: req.userId });
+        
+        res.status(200).json(exercises);
     } catch (error) {
-        res.status(400).json(error); // handle errors
+        res.status(400).json(error);
     }
 };
 
 // Get a specific exercise by ID
 export const getExerciseById = async (req, res) => {
     try {
-        const exercise = await Exercise.findById(req.params.id); // Find the exercise by ID
+        const exercise = await Exercise.findById(req.params.id);
 
         if (!exercise) {
             return res.status(404).json({ message: 'Exercise not found' })
         }
 
-        res.status(200).json(exercise); // Respond with the found exercise
+        res.status(200).json(exercise);
     } catch (error) {
-        res.status(400).json(error); // handle errors
+        res.status(400).json(error);
     }
 };
 
 // Update an exercise by ID 
 export const updateExercise = async (req, res) => {
     try {
-        const updetedExercise = await Exercise.findByIdAndUpdate(req.params.id, req.body, { new: true }); // Update and return the new document
+        const updatedExercise = await Exercise.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
 
-        if (!updateExercise) {
+        if (!updatedExercise) {
             return res.status(404).json({ message: 'Exercise not found' });
         }
 
-        res.status(200).json(updateExercise); // Respond with the updated exercise
+        res.status(200).json(updatedExercise);
     } catch (error) {
-        res.status(400).json(error); // handle errors
+        res.status(400).json(error);
     }
 };
 
@@ -74,7 +78,7 @@ export const deleteExercise = async (req, res) => {
 
         res.status(200).json({ message: 'Exercise deleted successfully', deletedExercise })
     } catch (error) {
-        res.status(400).json(error); // handle errors
+        res.status(400).json(error);
     }
 
 };

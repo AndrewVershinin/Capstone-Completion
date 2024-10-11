@@ -1,31 +1,30 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseClient";
+import { loginUser } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const token = await userCredential.user.getIdToken();
-            // Save token in localStorage
-            localStorage.setItem('token', token);
-            setSuccess('You logged in successfully!');
-            setError('');
-            navigate('/profile')
+            const userData = { email, password };
+            const response = await loginUser(userData);
+
+            if (response.token) {
+                localStorage.setItem('token', response.token); // Store the JWT token
+                navigate('/profile'); 
+            } else {
+                setError('Login failed: No token returned.');
+            }
         } catch (error) {
             console.error('Error logging in:', error);
-            setError('Login failed.');
-            setSuccess('');
+            setError('Error logging in.');
         }
-    }
+    };
 
     return (
         <div>
@@ -46,7 +45,6 @@ const Login = () => {
                 />
                 <button type="submit">Login</button>
             </form>
-            {success && <p style={{ color: 'green' }}>{success}</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
     );

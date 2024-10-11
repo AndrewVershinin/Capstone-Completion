@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUserProfile } from "../../services/api";
-import { auth } from "../../firebaseClient";
 import { useNavigate } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
+
 
 
 const Profile = () => {
@@ -12,42 +11,27 @@ const Profile = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        console.log("Token from localStorage:", token);
         if (!token) {
             navigate('/login');
         } else {
-            const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-                if (firebaseUser) {
-                    const uid = firebaseUser.uid;
-                    console.log("Current Firebase UID:", uid);
-                    try {
-                        const profile = await getUserProfile(uid, token);
-                        console.log("Fetched profile for UID:", uid);
-                        setUser(profile);
-                    } catch (error) {
-                        console.error('Error fetching user profile:', error);
-                        setError('Failed to load user profile.');
-                    }
-                } else {
-                    navigate('/login');
+            const fetchProfile = async () => {
+                try {
+                    const profile = await getUserProfile(token); // Pass the token and user ID
+                    setUser(profile);
+                } catch (error) {
+                    setError('Failed to load user profile.');
                 }
-            });
-            // Cleanup function to unsubscribe when the component unmounts
-            return () => unsubscribe(); 
+            };
+            fetchProfile();
         }
     }, [navigate]);
 
+
     // Handle logout
-    const handleLogout = async () => {
-        try {
-            await auth.signOut();
-            localStorage.removeItem('token');
-            navigate('/login')
-        } catch (error) {
-            console.error('Error logging out: ', error)
-            setError('Failed to log out.');
-        }
-    }
+    const handleLogout = () => {
+        localStorage.removeItem('token'); // Remove the token from localStorage
+        navigate('/login'); 
+    };
 
     return (
         <div>

@@ -20,10 +20,10 @@ const exerciseSchema = mongoose.Schema({
         type: String,
         trim: true
     },
-    user: { // Add a reference to the user who created the exercise
+    user: { // A reference to the user who created the exercise
         type: mongoose.Schema.Types.ObjectId,
-        ref: User,
-        required: true // Make sure every exercise has a user associated with it
+        ref: 'User',
+        required: true 
     }
 }, {
     timestamps: true

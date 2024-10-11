@@ -1,21 +1,17 @@
-import { auth } from '../firebase.js';
+import jwt from 'jsonwebtoken';
 
-// Middleware to verify Firebase ID Token
-export const verifyToken = async (req, res, next) => {
-    const token = req.headers.authorization?.split(' ')[1]; // extract token from Authorization header
-
+export const verifyToken = (req, res, next) => {
+    const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
         return res.status(401).json({ message: 'No token provided' });
     }
 
     try {
-        // Verify the token with Firebase Admin SDK
-        const decodedToken = await auth.verifyIdIdToken(token);
-        req.user = decodedToken; // Attach the decoded token to req.user
-        console.log('Decoded Token:', decodedToken);
-        next(); // Proceed to the next middleware/controller
+        const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify the token using JWT_SECRET
+        req.userId = decoded.id; 
+        console.log("Verified token, userId:", req.userId);
+        next();
     } catch (error) {
-        console.log('Token verification failed:', error);
-        res.status(401).json({ message: 'Unauthorized: Invalid token' });
+        return res.status(401).json({ message: 'Failed to authenticate token.' });
     }
-}
+};
