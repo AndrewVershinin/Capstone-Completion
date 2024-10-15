@@ -26,6 +26,7 @@ const ExerciseManager = () => {
         try {
             const newExercise = await createExercise(exerciseData, token);
             setExercises([...exercises, newExercise]);
+            alert('Exercise created successfully!');
         } catch (error) {
             console.error('Error adding exercise:', error);
         }
@@ -50,6 +51,7 @@ const ExerciseManager = () => {
             console.error('Error deleting exercise:', error);
         }
     };
+
 
     return (
         <div>

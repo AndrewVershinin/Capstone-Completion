@@ -20,7 +20,7 @@ export const getExercises = async () => {
     try {
         const response = await api.get('/exercises', {
             headers: {
-                Authorization: `Bearer ${getToken()}`, 
+                Authorization: `Bearer ${getToken()}`,
             },
         });
         return response.data;
@@ -30,12 +30,27 @@ export const getExercises = async () => {
     }
 };
 
+// Fetch one exercise by ID
+export const getExerciseById = async (id) => {
+    try {
+        const response = await api.get(`/exercises/${id}`, {
+            headers: {
+                Authorization: `Bearer ${getToken()}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching exercise by ID:', error);
+        throw error;
+    }
+};
+
 // Create a new exercise
 export const createExercise = async (exerciseData) => {
     try {
         const response = await api.post('/exercises', exerciseData, {
             headers: {
-                Authorization: `Bearer ${getToken()}`, 
+                Authorization: `Bearer ${getToken()}`,
             }
         });
         return response.data;
@@ -50,7 +65,7 @@ export const updateExercise = async (exerciseId, exerciseData) => {
     try {
         const response = await api.put(`/exercises/${exerciseId}`, exerciseData, {
             headers: {
-                Authorization: `Bearer ${getToken()}`, 
+                Authorization: `Bearer ${getToken()}`,
             }
         });
         return response.data;
@@ -65,7 +80,7 @@ export const deleteExercise = async (exerciseId) => {
     try {
         const response = await api.delete(`/exercises/${exerciseId}`, {
             headers: {
-                Authorization: `Bearer ${getToken()}`, 
+                Authorization: `Bearer ${getToken()}`,
             },
         });
         return response.data;
@@ -82,7 +97,7 @@ export const getWorkouts = async () => {
     try {
         const response = await api.get('/workouts', {
             headers: {
-                Authorization: `Bearer ${getToken()}`, 
+                Authorization: `Bearer ${getToken()}`,
             }
         });
         return response.data;
@@ -97,7 +112,7 @@ export const createWorkout = async (workoutData) => {
     try {
         const response = await api.post('/workouts', workoutData, {
             headers: {
-                Authorization: `Bearer ${getToken()}`, 
+                Authorization: `Bearer ${getToken()}`,
             },
         });
         return response.data;
@@ -127,7 +142,7 @@ export const deleteWorkout = async (workoutId) => {
     try {
         const response = await api.delete(`/workouts/${workoutId}`, {
             headers: {
-                Authorization: `Bearer ${getToken()}`, 
+                Authorization: `Bearer ${getToken()}`,
             },
         });
         return response.data;
@@ -144,7 +159,7 @@ export const getUserProfile = async () => {
     try {
         const response = await api.get(`/users/profile`, {
             headers: {
-                Authorization: `Bearer ${getToken()}`, 
+                Authorization: `Bearer ${getToken()}`,
             },
         });
         return response.data;

@@ -28,10 +28,10 @@ const Profile = () => {
 
 
     // Handle logout
-    const handleLogout = () => {
-        localStorage.removeItem('token'); // Remove the token from localStorage
-        navigate('/login'); 
-    };
+    // const handleLogout = () => {
+    //     localStorage.removeItem('token'); // Remove the token from localStorage
+    //     navigate('/login'); 
+    // };
 
     return (
         <div>
@@ -40,7 +40,7 @@ const Profile = () => {
                 <div>
                     <p><strong>Name:</strong> {user.displayName}</p>
                     <p><strong>Email:</strong> {user.email}</p>
-                    <button onClick={handleLogout}>Log Out</button>
+                    {/* <button onClick={handleLogout}>Log Out</button> */}
                 </div>
             ) : (
                 <p>{error ? error : 'No user data found.'}</p>

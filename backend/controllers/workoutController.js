@@ -5,19 +5,18 @@ import User from "../models/userModel.js";
 export const createWorkout = async (req, res) => {
     const { workoutName, exercises, notes } = req.body;
 
-    // Ensure the user is authenticated
-    const userId = req.user.uid;
+    const userId = req.userId;
 
     try {
         if (exercises.length === 0) {
             return res.status(400).json({ message: 'Workout must include at least one exercise.' });
         }
         // Create a new workout and associate it with the authenticated user
-        const newWorkout = await Workout.create({ 
-            workoutName, 
-            exercises, 
+        const newWorkout = await Workout.create({
+            workoutName,
+            exercises,
             notes,
-            user: userId // Associate the workout with the user's ID
+            user: userId
         });
 
         // update the user's workouts array
@@ -28,24 +27,29 @@ export const createWorkout = async (req, res) => {
         res.status(201).json({ message: "Workout created successfully", newWorkout })
 
     } catch (error) {
-        res.status(400).json(error) // handle errors
+        res.status(400).json(error)
     }
 };
 
 // Get all workouts
 export const getWorkouts = async (req, res) => {
     try {
-        const workouts = await Workout.find().populate('exercises') // include full exercise details in response
+        console.log('User ID:', req.userId);
+        const workouts = await Workout.find({ user: req.userId }).populate({
+            path: 'exercises.exercise',
+            select: 'name bodyPart category'
+        });
         res.status(200).json(workouts)
     } catch (error) {
-        res.status(500).json({ message: error.message }) // handle errors
+        res.status(500).json({ message: error.message })
     }
 };
+
 
 // Get workout by ID
 export const getWorkoutById = async (req, res) => {
     try {
-        const workout = await Workout.findById(req.params.id).populate('exercises'); // include full exercise details in response
+        const workout = await Workout.findById(req.params.id).populate('exercises');
         if (!workout) {
             return res.status(404).json({ message: 'Workout not found' })
         }
@@ -61,7 +65,7 @@ export const updateWorkout = async (req, res) => {
     try {
         const updatedWorkout = await Workout.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
-        // Check if the workout was found and updated
+
         if (!updatedWorkout) {
             return res.status(404).json({ message: 'Workout not found' });
         }
@@ -76,7 +80,7 @@ export const deleteWorkout = async (req, res) => {
     try {
         const deletedWorkout = await Workout.findByIdAndDelete(req.params.id);
 
-        // Check if the workout was found and deleted
+
         if (!deletedWorkout) {
             return res.status(404).json({ message: 'Workout not found' });
         }

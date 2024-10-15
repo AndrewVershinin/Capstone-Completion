@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
 
         // Generate JWT Token
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: '1h',
+            expiresIn: '2h',
         });
 
         console.log('Hashed Password:', hashedPassword);
@@ -66,7 +66,7 @@ export const loginUser = async (req, res) => {
         
         // Generate JWT Token
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: '1h',
+            expiresIn: '2h',
         });
 
        
