@@ -6,7 +6,6 @@ export const createExercise = async (req, res) => {
     const { name, bodyPart, category, instruction } = req.body;
 
     try {
-
         if (!req.userId) {
             return res.status(400).json({ message: "User ID not provided." });
         }
@@ -18,6 +17,10 @@ export const createExercise = async (req, res) => {
             instruction,
             user: req.userId, // Attach the user's ID from the token
         });
+
+        const user = await User.findById(req.userId);
+        user.exercises.push(exercise._id);
+        await user.save();
 
         res.status(201).json(exercise);
     } catch (error) {

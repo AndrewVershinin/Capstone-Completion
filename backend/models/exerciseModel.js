@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import User from "./userModel.js";
 
 const exerciseSchema = mongoose.Schema({
     name: {

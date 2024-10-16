@@ -25,7 +25,7 @@ const Navbar = () => {
     };
 
     return (
-        <div>
+        <div className={styles.navbarBox}>
             <h1>Your Workout mate</h1>
             <nav className={styles.navbar}>
                 <div className={styles.links}>

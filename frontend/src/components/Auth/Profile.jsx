@@ -17,7 +17,7 @@ const Profile = () => {
         } else {
             const fetchProfile = async () => {
                 try {
-                    const profile = await getUserProfile(token); // Pass the token and user ID
+                    const profile = await getUserProfile(token); 
                     setUser(profile);
                 } catch (error) {
                     setError('Failed to load user profile.');
@@ -41,6 +41,8 @@ const Profile = () => {
                 <div>
                     <p><strong>Name:</strong> {user.displayName}</p>
                     <p><strong>Email:</strong> {user.email}</p>
+                    <p><strong>My Workouts:</strong> {user.workouts ? user.workouts.length : 0}</p>
+                    <p><strong>My Exercises:</strong> {user.exercises ? user.exercises.length : 0}</p>
                     {/* <button onClick={handleLogout}>Log Out</button> */}
                 </div>
             ) : (

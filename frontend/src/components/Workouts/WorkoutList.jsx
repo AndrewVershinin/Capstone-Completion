@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './Workout.module.css';
 
 const WorkoutList = ({ workouts, onDelete, onUpdate }) => {
     const [editingWorkoutId, setEditingWorkoutId] = useState(null);  // Track which workout is being edited
@@ -7,7 +8,7 @@ const WorkoutList = ({ workouts, onDelete, onUpdate }) => {
     // Function to handle editing a workout
     const handleEdit = (workout) => {
         setEditingWorkoutId(workout._id);  // Set the current workout being edited
-        setEditedWorkout({...workout});  // Copy workout data to the editing state
+        setEditedWorkout({ ...workout });  // Copy workout data to the editing state
     };
 
     // Function to handle saving the edited workout
@@ -36,49 +37,34 @@ const WorkoutList = ({ workouts, onDelete, onUpdate }) => {
     };
 
     return (
-        <div>
+        <div className={styles.workoutList}>
             <h2>My Workouts</h2>
-            <ul>
+            <ul className={styles.workoutBox}>
                 {workouts.map((workout) => (
-                    <li key={workout._id}>
+                    <li key={workout._id} className={styles.workoutCard}>
                         {editingWorkoutId === workout._id ? (
-                            <div>
+                            <div className={styles.editingWorkoutCard}>
                                 <input
                                     type="text"
                                     value={editedWorkout.workoutName}
                                     onChange={(e) => handleChange(e, 'workoutName')}
                                 />
-                                <br />
-                                <textarea
-                                    value={editedWorkout.notes}
-                                    onChange={(e) => handleChange(e, 'notes')}
-                                    placeholder="Workout Notes"
-                                />
-                                <br />
                                 Exercises:
                                 <ul>
                                     {editedWorkout.exercises.map((exercise, index) => (
-                                        <li key={exercise._id}>
+                                        <li key={exercise._id} className={styles.exerciseDetails}>
                                             <input
                                                 type="text"
                                                 value={exercise.exercise.name}
-                                                readOnly  
+                                                readOnly
                                             />
-                                            <br />
-                                            <input
-                                                type="text"
-                                                value={exercise.exercise.bodyPart}
-                                                readOnly  
-                                            />
-                                            <br />
-                                            Sets: 
+                                            Sets:
                                             <input
                                                 type="number"
                                                 value={exercise.sets}
                                                 onChange={(e) => handleChange(e, 'sets', index)}
                                             />
-                                            <br />
-                                            Reps: 
+                                            Reps:
                                             <input
                                                 type="number"
                                                 value={exercise.reps}
@@ -87,28 +73,28 @@ const WorkoutList = ({ workouts, onDelete, onUpdate }) => {
                                         </li>
                                     ))}
                                 </ul>
+                                <textarea
+                                    value={editedWorkout.notes}
+                                    onChange={(e) => handleChange(e, 'notes')}
+                                />
                                 <button onClick={handleSave}>Save</button>
                                 <button onClick={handleCancel}>Cancel</button>
                             </div>
                         ) : (
-                            <div>
-                                <strong>{workout.workoutName}</strong> <br />
-                                Notes: {workout.notes}
-                                <br />
-                                Exercises:
+                            <div className={styles.displayWorkout}>
+                                <h3>{workout.workoutName}</h3>
                                 <ul>
                                     {workout.exercises.map((exercise) => (
-                                        <li key={exercise._id}>
-                                            {exercise.exercise.name} 
+                                        <li key={exercise._id} className={styles.exerciseDetails}>
+                                            {exercise.exercise.name} - {exercise.exercise.bodyPart} ({exercise.exercise.category})
                                             <br />
-                                            {exercise.exercise.bodyPart} ({exercise.exercise.category})
-                                            <br /> 
                                             Sets: {exercise.sets}, Reps: {exercise.reps}
                                         </li>
                                     ))}
                                 </ul>
-                                <button onClick={() => handleEdit(workout)}>Edit</button>
-                                <button onClick={() => onDelete(workout._id)}>Delete</button>
+                                <p>{workout.notes}</p>
+                                <button className={styles.displayWorkoutEditBtn} onClick={() => handleEdit(workout)}>Edit</button>
+                                <button className={styles.displayWorkoutDeleteBtn} onClick={() => onDelete(workout._id)}>Delete</button>
                             </div>
                         )}
                     </li>

@@ -20,6 +20,10 @@ const userSchema = mongoose.Schema({
     workouts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Workout'
+    }],
+    exercises: [{ 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Exercise'
     }]
 }, {
     timestamps: true

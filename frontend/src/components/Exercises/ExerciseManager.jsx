@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createExercise, getExercises, updateExercise, deleteExercise } from '../../services/api';
 import ExerciseForm from './ExerciseForm';
 import ExerciseList from './ExerciseList';
+import styles from './Exercise.module.css'
 
 
 const ExerciseManager = () => {
@@ -54,7 +55,7 @@ const ExerciseManager = () => {
 
 
     return (
-        <div>
+        <div className={styles.exerciseManager}>
             <ExerciseForm
                 onAddExercise={handleAddExercise}
                 onUpdateExercise={handleUpdateExercise}

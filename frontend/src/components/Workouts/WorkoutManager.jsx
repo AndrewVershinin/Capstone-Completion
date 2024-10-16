@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getExercises, createWorkout, deleteWorkout, getWorkouts, updateWorkout } from '../../services/api';
 import WorkoutList from './WorkoutList';
+import styles from './Workout.module.css';
 
 const WorkoutManager = () => {
     const [userExercises, setUserExercises] = useState([]);
@@ -8,6 +9,7 @@ const WorkoutManager = () => {
     const [workoutName, setWorkoutName] = useState('');
     const [notes, setNotes] = useState('');
     const [workouts, setWorkouts] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchWorkouts = async () => {
@@ -44,6 +46,7 @@ const WorkoutManager = () => {
         try {
             await createWorkout(workoutData, token);
             alert('Workout created successfully!');
+            setShowModal(false);
         } catch (error) {
             console.error('Error creating workout:', error);
         }
@@ -63,67 +66,95 @@ const WorkoutManager = () => {
     const handleUpdateWorkout = async (workoutId, updatedWorkoutData) => {
         const token = localStorage.getItem('token');
         try {
-            await updateWorkout(workoutId, updatedWorkoutData, token);  
-            setWorkouts(workouts.map(w => w._id === workoutId ? updatedWorkoutData : w)); 
+            await updateWorkout(workoutId, updatedWorkoutData, token);
+            setWorkouts(workouts.map(w => w._id === workoutId ? updatedWorkoutData : w));
         } catch (error) {
             console.error('Error updating workout:', error);
         }
     };
 
+    const openModal = () => {
+        fetchUserExercises(); 
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setSelectedExercises([]);
+        setWorkoutName('');
+        setNotes('');
+    };
+
     return (
-        <div>
+        <div className={styles.workoutFormContainer}>
             <h2>Create Workout</h2>
-            <button onClick={fetchUserExercises}>Click to Add New Template</button>
-            <ul>
-                {userExercises.map(exercise => (
-                    <li key={exercise._id}>
-                        {exercise.name} - {exercise.bodyPart}
-                        <button onClick={() => handleAddExerciseToWorkout(exercise)}>Add</button>
-                    </li>
-                ))}
-            </ul>
-            <form onSubmit={handleCreateWorkout}>
-                <input
-                    type="text"
-                    value={workoutName}
-                    onChange={(e) => setWorkoutName(e.target.value)}
-                    placeholder="Workout Name"
-                    required
-                />
-                <textarea
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    placeholder="Workout Notes"
-                />
-                <ul>
-                    {selectedExercises.map((exercise, index) => (
-                        <li key={index}>
-                            {exercise.exercise.name} - {exercise.exercise.bodyPart}
+            <button onClick={openModal} className={styles.addTemplateBtn}>
+                Click to Add New Template
+            </button>
+            {showModal && (
+                <div className={styles.modal}>
+                    <div className={styles.modalContent}>
+                        <h2>Create Workout</h2>
+                        <h4>Your exercises</h4>
+                        <button className={styles.closeBtn} onClick={closeModal}>
+                            &times;
+                        </button>
+                        <ul className={styles.ulFeched}>
+                            {userExercises.map(exercise => (
+                                <li key={exercise._id} className={styles.fetchedExercises}>
+                                    <p><strong>{exercise.name}</strong></p>
+                                    <p>{exercise.bodyPart} ({exercise.category})</p>
+                                    <button onClick={() => handleAddExerciseToWorkout(exercise)}>Add</button>
+                                </li>
+                            ))}
+                        </ul>
+                        <form onSubmit={handleCreateWorkout} className={styles.createWorkoutForm}>
                             <input
-                                type="number"
-                                value={exercise.sets}
-                                onChange={(e) => {
-                                    const updatedExercises = [...selectedExercises];
-                                    updatedExercises[index].sets = e.target.value;
-                                    setSelectedExercises(updatedExercises);
-                                }}
-                                placeholder="Sets"
+                                type="text"
+                                value={workoutName}
+                                onChange={(e) => setWorkoutName(e.target.value)}
+                                placeholder="Workout Name"
+                                required
                             />
-                            <input
-                                type="number"
-                                value={exercise.reps}
-                                onChange={(e) => {
-                                    const updatedExercises = [...selectedExercises];
-                                    updatedExercises[index].reps = e.target.value;
-                                    setSelectedExercises(updatedExercises);
-                                }}
-                                placeholder="Reps"
+                            <textarea
+                                value={notes}
+                                onChange={(e) => setNotes(e.target.value)}
+                                placeholder="Workout Notes"
                             />
-                        </li>
-                    ))}
-                </ul>
-                <button type="submit">Create Workout</button>
-            </form>
+                            <ul className={styles.selectedExercisesList}>
+                                {selectedExercises.map((exercise, index) => (
+                                    <li key={index} className={styles.addedExercise}>
+                                        <p><strong>{exercise.exercise.name}</strong></p>
+                                        <p>{exercise.exercise.bodyPart}</p>
+                                        <input
+                                            type="number"
+                                            value={exercise.sets}
+                                            onChange={(e) => {
+                                                const updatedExercises = [...selectedExercises];
+                                                updatedExercises[index].sets = e.target.value;
+                                                setSelectedExercises(updatedExercises);
+                                            }}
+                                            placeholder="Sets"
+                                        />
+                                        <input
+                                            type="number"
+                                            value={exercise.reps}
+                                            onChange={(e) => {
+                                                const updatedExercises = [...selectedExercises];
+                                                updatedExercises[index].reps = e.target.value;
+                                                setSelectedExercises(updatedExercises);
+                                            }}
+                                            placeholder="Reps"
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
+                            <button type="submit">Create Workout</button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
             <WorkoutList
                 workouts={workouts}
                 onDelete={handleDeleteWorkout}

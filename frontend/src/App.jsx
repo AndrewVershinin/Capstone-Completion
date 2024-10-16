@@ -8,6 +8,7 @@ import ExerciseManager from './components/Exercises/ExerciseManager';
 import WorkoutManager from './components/Workouts/WorkoutManager';
 import Navbar from './components/Navbar/Navbar';
 
+
 function App() {
 
 

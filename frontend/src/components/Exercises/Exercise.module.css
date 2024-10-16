@@ -1,29 +1,127 @@
+.exerciseManager {
+    color: #585757;
+}
+
 .exerciseForm {
     display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
     align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: auto;
+
 }
 
 .createExercise {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 12px;
 }
 
-.exercisesList{
+
+.createExercise input,
+.createExercise select,
+.createExercise textarea,
+.createExercise button {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.createExercise button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.createExercise button:hover {
+    background-color: #0056b3;
+}
+
+.exercisesList {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    justify-content: center;
     align-items: center;
+    gap: 16px;
+    margin-top: 20px;
 }
 
-.exercisesBox{
-    
+.exercisesList h3 {
+    color: #007bff;
 }
 
-.exercise{
-    
+.exerciseBox {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.exercise {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    flex: 1 1 250px;
+    max-width: 300px;
+    border: 1px solid #ddd;
+}
+
+.exercise:hover {
+    transform: translateY(-2px);
+}
+
+.exerciseName {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.exerciseDetail,
+.exerciseInstruction {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.editButton,
+.deleteButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.editButton:hover {
+    background-color: #0056b3;
+}
+
+.deleteButton {
+    background-color: #ff4d4d;
+}
+
+.deleteButton:hover {
+    background-color: #d63333;
 }
