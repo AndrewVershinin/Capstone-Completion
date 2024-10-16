@@ -1,14 +1,15 @@
 import React from 'react';
+import styles from './Exercise.module.css'
 
 const ExerciseList = ({ exercises, onEdit, onDelete }) => {
     const token = localStorage.getItem('token');
 
     return (
-        <div>
-            <h2>Exercises</h2>
-            <ul>
+        <div className={styles.exercisesList}>
+            <h2>Your Exercises</h2>
+            <ul className={styles.exerciseBox}>
                 {exercises.map(exercise => (
-                    <li key={exercise._id}>
+                    <li key={exercise._id} className={styles.exercise}>
                         {exercise.name} 
                         {exercise.bodyPart} 
                         ({exercise.category})

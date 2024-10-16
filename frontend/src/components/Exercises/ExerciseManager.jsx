@@ -55,7 +55,6 @@ const ExerciseManager = () => {
 
     return (
         <div>
-            <h2>Exercise Manager</h2>
             <ExerciseForm
                 onAddExercise={handleAddExercise}
                 onUpdateExercise={handleUpdateExercise}

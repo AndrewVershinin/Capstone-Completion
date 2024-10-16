@@ -1,0 +1,40 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #007bff;
+    padding: 10px;
+}
+
+.links {
+    display: flex;
+    gap: 15px;
+}
+
+.links a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #0056b3;
+    transition: background-color 0.3s ease;
+}
+
+.links a:hover {
+    background-color: #004080;
+}
+
+.logoutBtn {
+    background-color: #c92c2c;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logoutBtn:hover {
+    background-color: #800b0b;
+}

@@ -1,0 +1,29 @@
+.exerciseForm {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.createExercise {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.exercisesList{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.exercisesBox{
+    
+}
+
+.exercise{
+    
+}

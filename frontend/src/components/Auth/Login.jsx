@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import styles from './Auth.module.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -27,13 +28,13 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div className={styles.login}>
             <h2>Login</h2>
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleLogin} className={styles.loginForm}>
                 <input
                     type="email"
                     value={email} onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your email"
+                    placeholder="Your email"
                     required
                 />
                 <input

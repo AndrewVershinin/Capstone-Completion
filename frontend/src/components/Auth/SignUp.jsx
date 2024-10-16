@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { registerUser } from '../../services/api';
 import { useNavigate } from "react-router-dom";
+import styles from './Auth.module.css';
 
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [displayName, setDisplayName] = useState('');
-    const [error, setError] = useState('');
     const navigate = useNavigate()
 
     const handleSignUp = async (e) => {
@@ -29,9 +29,9 @@ const SignUp = () => {
     };
 
     return (
-        <div>
+        <div className={styles.signUp}>
             <h2>Sign up</h2>
-            <form onSubmit={handleSignUp}>
+            <form onSubmit={handleSignUp} className={styles.signUpForm}>
                 <input
                     type="text"
                     value={displayName}

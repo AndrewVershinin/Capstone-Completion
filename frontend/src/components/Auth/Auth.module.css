@@ -1,0 +1,27 @@
+.profile {
+    text-align: center;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.signUp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signUpForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

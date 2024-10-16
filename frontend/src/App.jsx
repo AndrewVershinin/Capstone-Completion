@@ -6,7 +6,7 @@ import Login from './components/Auth/Login';
 import Profile from './components/Auth/Profile';
 import ExerciseManager from './components/Exercises/ExerciseManager';
 import WorkoutManager from './components/Workouts/WorkoutManager';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
 

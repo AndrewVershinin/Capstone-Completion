@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styles from './Exercise.module.css'
 
 const ExerciseForm = ({ onAddExercise, onUpdateExercise, editingExercise, setEditingExercise }) => {
     const [name, setName] = useState('');
@@ -50,33 +51,35 @@ const ExerciseForm = ({ onAddExercise, onUpdateExercise, editingExercise, setEdi
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>{isEditing ? 'Edit Exercise' : 'Add Exercise'}</h2>
-            <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Exercise Name"
-                required
-            />
-            <select value={bodyPart} onChange={(e) => setBodyPart(e.target.value)} required>
-                <option value="">Select Body Part</option>
-                {bodyPartOptions.map((option, index) => (
-                    <option key={index} value={option}>{option}</option>
-                ))}
-            </select>
-            <select value={category} onChange={(e) => setCategory(e.target.value)} required>
-                <option value="">Select Category</option>
-                {categoryOptions.map((option, index) => (
-                    <option key={index} value={option}>{option}</option>
-                ))}
-            </select>
-            <textarea
-                value={instruction}
-                onChange={(e) => setInstruction(e.target.value)}
-                placeholder="Instructions"
-            />
-            <button type="submit">{isEditing ? 'Update Exercise' : 'Add Exercise'}</button>
+        <form onSubmit={handleSubmit} className={styles.exerciseForm}>
+            <h2>{isEditing ? 'Edit Exercise' : 'Create New Exercise'}</h2>
+            <div className={styles.createExercise}>
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Exercise Name"
+                    required
+                />
+                <select value={bodyPart} onChange={(e) => setBodyPart(e.target.value)} required>
+                    <option value="">Select Body Part</option>
+                    {bodyPartOptions.map((option, index) => (
+                        <option key={index} value={option}>{option}</option>
+                    ))}
+                </select>
+                <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+                    <option value="">Select Category</option>
+                    {categoryOptions.map((option, index) => (
+                        <option key={index} value={option}>{option}</option>
+                    ))}
+                </select>
+                <textarea
+                    value={instruction}
+                    onChange={(e) => setInstruction(e.target.value)}
+                    placeholder="Instructions"
+                />
+                <button type="submit">{isEditing ? 'Update Exercise' : 'Add Exercise'}</button>
+            </div>
         </form>
     );
 };

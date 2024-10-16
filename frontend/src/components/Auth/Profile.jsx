@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUserProfile } from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import styles from './Auth.module.css';
 
 
 
@@ -34,7 +35,7 @@ const Profile = () => {
     // };
 
     return (
-        <div>
+        <div className={styles.profile}>
             <h2>Profile</h2>
             {user ? (
                 <div>
