@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from './Auth.module.css';
 
 
-const SignUp = () => {
+const SignUp = ({ setIsLoggedIn }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [displayName, setDisplayName] = useState('');
@@ -19,6 +19,7 @@ const SignUp = () => {
             if (response.token) {
                 localStorage.setItem('token', response.token); // Store the JWT token in localStorage
                 console.log('User registered successfully!');
+                setIsLoggedIn(true);
                 navigate('/profile');
             } else {
                 console.error('Error: No token returned from backend');

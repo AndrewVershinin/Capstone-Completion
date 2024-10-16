@@ -3,7 +3,7 @@ import { loginUser } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import styles from './Auth.module.css';
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -17,6 +17,7 @@ const Login = () => {
 
             if (response.token) {
                 localStorage.setItem('token', response.token); // Store the JWT token
+                setIsLoggedIn(true);
                 navigate('/profile'); 
             } else {
                 setError('Login failed: No token returned.');

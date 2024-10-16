@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Navbar.module.css';
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
     const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -14,7 +13,7 @@ const Navbar = () => {
         //     setIsLoggedIn(false);
         // }
         setIsLoggedIn(!!token); // !! (Double Bang): This is a JavaScript trick used to convert any value to a boolean and if !!token is true is a non-empty string
-    }, [isLoggedIn]);
+    }, [setIsLoggedIn]);
 
 
 

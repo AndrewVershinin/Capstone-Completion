@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import SignUp from './components/Auth/SignUp';
@@ -11,19 +11,25 @@ import Navbar from './components/Navbar/Navbar';
 
 function App() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token); // Update state based on token presence
+  }, []);
 
   return (
     <>
       <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/exercises" element={<ExerciseManager />} />
-        <Route path="/workouts" element={<WorkoutManager />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </Router>
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <Routes>
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/register" element={<SignUp setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/exercises" element={<ExerciseManager />} />
+          <Route path="/workouts" element={<WorkoutManager />} />
+        </Routes>
+      </Router>
     </>
   )
 }

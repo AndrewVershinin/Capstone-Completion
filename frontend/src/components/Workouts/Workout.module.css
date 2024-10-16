@@ -162,7 +162,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 16px;
     flex: 1 1 300px; 
-    max-width: 400px;
+    max-width: 300px;
     border: 1px solid #ddd;
     transition: transform 0.2s ease-in-out;
 }
@@ -215,9 +215,6 @@
  
 }
 
-.displayWorkout {
-   
-}
 
 .displayWorkout p{
     background-color: #fafafa;
@@ -256,5 +253,35 @@
 }
 
 .displayWorkoutDeleteBtn:hover {
+    background-color: #d63333;
+}
+
+.editWorkoutButtonSave {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 0px;
+    margin-top: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.editWorkoutButtonSave:hover {
+    background-color: #15882f;
+}
+
+.editWorkoutButtonCancel {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 8px 0px;
+    margin-top: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.editWorkoutButtonCancel:hover {
     background-color: #d63333;
 }
