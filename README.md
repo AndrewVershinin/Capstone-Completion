@@ -61,8 +61,8 @@ Workout Mate is a full-stack web application designed to help users keep track o
     - MongoDB with Mongoose
     - JWT for authentication
 - Deployment:
-    - Client: Netlify or Vercel
-    - Server: Heroku or Render
+    - Client: Netlify https://workoutmatecapstone.netlify.app/
+    - Server: Render https://capstone-completion.onrender.com
 
 ## API Endpoints
 
