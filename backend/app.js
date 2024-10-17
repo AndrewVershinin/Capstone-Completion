@@ -9,6 +9,7 @@ const app = express();
 
 // Enable CORS for all requests or specific domains
 app.use(cors({
+    origin: 'https://workoutmatecapstone.netlify.app',
     credentials: true
 }))
 
