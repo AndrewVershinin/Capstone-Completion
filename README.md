@@ -86,7 +86,7 @@ Workout Mate is a full-stack web application designed to help users keep track o
 - PUT /api/workouts/:id - Update an existing workout.
 - DELETE /api/workouts/:id - Delete a workout.
 
-### Future Enhancements
+## Future Enhancements
 
 1. Add Progress Tracking: Track user progress over time by logging workout sessions.
 2. Social Features: Allow users to share their workout routines with friends.
